@@ -60,8 +60,13 @@ const Comments = ({ post }) => {
         const getData = async () => {
             try {
                 const response = await API.getAllComments(post._id);
+                console.log(response); // Log the response
                 if (response.isSuccess) {
-                    setComments(response.data);
+                    if (Array.isArray(response.data)) {
+                        setComments(response.data);
+                    } else {
+                        console.error('API response data is not an array:', response.data);
+                    }
                 } else {
                     console.error('Failed to fetch comments');
                 }
@@ -118,7 +123,7 @@ const Comments = ({ post }) => {
                 </ButtonStyled>
             </Container>
             <Box mt={2}>
-                {comments && comments.length > 0 && comments.map(comment => (
+                {Array.isArray(comments) && comments.length > 0 && comments.map(comment => (
                     <Comment key={comment._id} comment={comment} setToggle={setToggle} />
                 ))}
             </Box>

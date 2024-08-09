@@ -57,7 +57,7 @@ const MobileContainer = styled(Box)(({ theme }) => ({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'left',
     },
 }));
 
@@ -87,6 +87,8 @@ const Categories = () => {
     
     const getCategoryIcon = (type) => {
         switch (type) {
+            case 'All':
+                return <TbPokeball />;
             case 'Music':
                 return <FaMusic />;
             case 'Movies':
@@ -109,19 +111,7 @@ const Categories = () => {
             </Link>
             
             <StyledTable>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            <StyledLink to={"/"}>
-                                <IconWrapper>
-                                <TbPokeball />
-                                {/* Example icon for "All Categories" */}
-                                </IconWrapper>
-                                All
-                            </StyledLink>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+               
                 <TableBody>
                     {categories.map(cat => (
                         <TableRow key={cat.id}>

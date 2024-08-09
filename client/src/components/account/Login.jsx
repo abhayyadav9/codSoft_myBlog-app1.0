@@ -121,6 +121,20 @@ const Login = ({ isUserAuthenticated }) => {
     };
 
     const loginUser = async () => {
+ const styles={
+    footer: {
+        padding: '20px',
+        textAlign: 'center',
+        backgroundColor: '#333',
+        color: '#fff',
+        marginTop: '40px',
+        position: 'fixed',
+        width: '100%',
+        bottom: 0,
+    },
+ }
+
+
         try {
             let response = await API.userLogin(login);
             if (response.isSuccess) {
@@ -225,6 +239,20 @@ const Login = ({ isUserAuthenticated }) => {
                             <LoginButton variant="contained" onClick={toggleSignup}>Already have an account</LoginButton>
                         </Wrapper>
                 }
+            </Box>
+
+
+
+            <Box className='footer' style={{ padding: '20px',
+        textAlign: 'center',
+        backgroundColor: '#333',
+        color: '#fff',
+        marginTop: '40px',
+
+        position: 'fixed',
+        width: '100%',
+        bottom: 0,}}>
+                <Typography variant="body2">All rights reserved &copy; Abhay Yadav</Typography>
             </Box>
         </Component>
     );

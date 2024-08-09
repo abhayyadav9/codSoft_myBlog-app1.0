@@ -41,6 +41,7 @@ const styles = {
         lineHeight: 1.6,
         marginTop: '20px',
         fontSize: '1.2rem',
+        marginBottom:'90px'
     },
     footer: {
         padding: '20px',
@@ -74,9 +75,9 @@ const About = () => {
             <Box sx={styles.wrapper}>
                 <Typography variant="h3" gutterBottom>Creator</Typography>
                 <Typography variant="h5" sx={styles.text}>
-                    I'm a Software Engineer with a passion for building dynamic web and desktop applications. <br />
+                    I'm a Software Engineer with a passion for building dynamic web . <br />
                     If you're interested in my work, check out some of my favorite projects here
-                    <Link href="https://github.com/abhay9" target="_blank" sx={styles.link}>
+                    <Link href="https://github.com/abhayyadav9" target="_blank" sx={styles.link}>
                         <GitHub />
                     </Link>.
                 </Typography>

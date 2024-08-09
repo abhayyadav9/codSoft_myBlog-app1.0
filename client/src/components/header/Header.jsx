@@ -14,7 +14,7 @@ const Component = styled(AppBar)(({ show, theme }) => ({
     marginBottom: '20px',
     display: show ? 'flex' : 'none',
     [theme.breakpoints.down('sm')]: {
-        padding: '5px 1px ', // Reduced padding for mobile view
+        padding: '5px 10px', // Adjust padding for mobile
         marginBottom: '10px',
     },
 }));
@@ -22,29 +22,53 @@ const Component = styled(AppBar)(({ show, theme }) => ({
 const Container = styled(Toolbar)(({ theme }) => ({
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'left',
+    flexWrap: 'wrap',
+    [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+    },
+}));
+
+const LeftContainer = styled('div')(({ theme }) => ({
+    display: 'flex',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
-        flexDirection: 'row', // Change to row for mobile
-        justifyContent: 'space-between',
+        order: -1, // Move this container to the bottom on mobile
+        width: '100%',
+        justifyContent: 'left',
+        gap:'105px' // Center align on mobile
     },
-    '& > a': {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '10px 20px',
-        color: '#FFF',
-        textDecoration: 'none',
-        fontSize: '18px',
-        transition: 'color 0.3s ease, transform 0.3s ease',
-        '&:hover': {
-            color: '#FFEB3B',
-            transform: 'scale(1.1)',
-        },
-        [theme.breakpoints.down('sm')]: {
-            fontSize: '12px', // Reduced font size for mobile
-        },
-        '& svg': {
-            marginRight: '1px', // Space between icon and text
-        },
+}));
+
+const RightContainer = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'centre',
+    [theme.breakpoints.down('sm')]: {
+        order: 1, // Move this container to the top on mobile
+        width: '100%',
+        justifyContent: 'left', // Center align on mobile
+    },
+}));
+
+const LinkStyled = styled(Link)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 20px',
+    color: '#FFF',
+    textDecoration: 'none',
+    fontSize: '18px',
+    transition: 'color 0.3s ease, transform 0.3s ease',
+    '&:hover': {
+        color: '#FFEB3B',
+        transform: 'scale(1.1)',
+    },
+    [theme.breakpoints.down('sm')]: {
+        fontSize: '14px', // Adjust font size for mobile
+        padding: '8px 10px', // Adjust padding for mobile
+      
+    },
+    '& svg': {
+        marginRight: '8px', // Adjust space between icon and text
     },
 }));
 
@@ -60,8 +84,9 @@ const LogoutButton = styled(Button)(({ theme }) => ({
     },
     [theme.breakpoints.down('sm')]: {
         marginTop: '10px',
-        fontSize: '10px',
-        width:'15px'
+        fontSize: '12px', // Adjust font size for mobile
+        width: '30%',
+        marginLeft:'90px' // Make button full-width on mobile
     },
 }));
 
@@ -101,18 +126,22 @@ const Header = () => {
             </ToggleButton>
             <Component show={showHeader}>
                 <Container>
-                    <Link to='/'>
-                        <HomeIcon /> HOME
-                    </Link>
-                    <Link to='/about'>
-                        <InfoIcon /> ABOUT
-                    </Link>
-                    <Link to='/contact'>
-                        <ContactMailIcon /> CONTACT
-                    </Link>
-                    <LogoutButton onClick={logout} variant="outlined">
-                        <ExitToAppIcon /> LOGOUT
-                    </LogoutButton>
+                    <LeftContainer>
+                        <LinkStyled to='/'>
+                            <HomeIcon /> HOME
+                        </LinkStyled>
+                        <LinkStyled to='/about'>
+                            <InfoIcon /> ABOUT
+                        </LinkStyled>
+                    </LeftContainer>
+                    <RightContainer>
+                        <LinkStyled to='/contact'>
+                            <ContactMailIcon /> CONTACT
+                        </LinkStyled>
+                        <LogoutButton onClick={logout} variant="outlined">
+                            <ExitToAppIcon /> LOGOUT
+                        </LogoutButton>
+                    </RightContainer>
                 </Container>
             </Component>
         </>

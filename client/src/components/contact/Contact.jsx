@@ -24,6 +24,7 @@ const Text = styled(Typography)`
 
 const Contact = () => {
     return (
+        <>   
         <Box>
             <Banner />
             <Wrapper>
@@ -40,6 +41,31 @@ const Contact = () => {
                 </Text>
             </Wrapper>
         </Box>
+
+        <Box
+        className="footer"
+        style={{
+          padding: "20px",
+          textAlign: "center",
+          backgroundColor: "#333",
+          color: "#fff",
+          marginTop: "40px",
+
+          position: "fixed",
+          width: "100%",
+          height:"10px",
+          bottom: 0,
+        }}
+      >
+        <Typography variant="body2">
+          All rights reserved &copy; Abhay Yadav
+        </Typography>
+      </Box>
+
+
+        </>
+        
+        
     );
 }
 
