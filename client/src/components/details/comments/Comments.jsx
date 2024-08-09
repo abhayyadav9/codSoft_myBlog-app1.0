@@ -52,6 +52,7 @@ const Comments = ({ post }) => {
     const [comment, setComment] = useState(initialValue);
     const [comments, setComments] = useState([]);
     const [toggle, setToggle] = useState(false);
+    const [error, setError] = useState(''); // State for validation error
 
     const { account } = useContext(DataContext);
 
@@ -81,6 +82,11 @@ const Comments = ({ post }) => {
     }
 
     const addComment = async () => {
+        if (comment.comments.trim() === '') {
+            setError('Comment cannot be empty.'); // Set error message
+            return;
+        }
+        setError(''); // Clear error message if input is valid
         try {
             await API.newComment(comment);
             setComment(initialValue);
@@ -99,7 +105,9 @@ const Comments = ({ post }) => {
                     placeholder="What's on your mind?"
                     onChange={handleChange}
                     value={comment.comments}
+                    required
                 />
+                {error && <Box color="error.main" mb={2}>{error}</Box>} {/* Display error message */}
                 <ButtonStyled
                     variant="contained"
                     color="primary"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Table, TableHead, TableRow, TableCell, TableBody, styled } from '@mui/material';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FaMusic, FaFilm, FaFutbol, FaLaptop, FaTshirt } from 'react-icons/fa';
+import { TbPokeball } from "react-icons/tb";
 import { categories } from '../../constants/data';
 
 // Styled components
@@ -113,9 +114,10 @@ const Categories = () => {
                         <TableCell>
                             <StyledLink to={"/"}>
                                 <IconWrapper>
-                                    <FaMusic /> {/* Example icon for "All Categories" */}
+                                <TbPokeball />
+                                {/* Example icon for "All Categories" */}
                                 </IconWrapper>
-                                All Categories
+                                All
                             </StyledLink>
                         </TableCell>
                     </TableRow>
