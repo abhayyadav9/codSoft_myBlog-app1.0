@@ -11,12 +11,17 @@ import Router from './routes/route.js';
 dotenv.config();
 
 const app = express();
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', Router);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+  
 
 const PORT = 8000;
 const username = process.env.DB_USERNAME;
