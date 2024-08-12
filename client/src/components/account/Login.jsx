@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { TextField, Box, Button, Typography, styled } from '@mui/material';
+import { TextField, Box, Button, Typography, styled, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { API } from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
@@ -102,6 +102,8 @@ const Login = ({ isUserAuthenticated }) => {
     const [signup, setSignup] = useState(signupInitialValues);
     const [error, showError] = useState('');
     const [account, toggleAccount] = useState('login');
+    const [loading, setLoading] = useState(false);
+
 
     const navigate = useNavigate();
     const { setAccount } = useContext(DataContext);
@@ -120,30 +122,27 @@ const Login = ({ isUserAuthenticated }) => {
         setSignup({ ...signup, [e.target.name]: e.target.value });
     };
 
+    const styles={
+        footer: {
+            padding: '20px',
+            textAlign: 'center',
+            backgroundColor: '#333',
+            color: '#fff',
+            marginTop: '40px',
+            position: 'fixed',
+            width: '100%',
+            bottom: 0,
+        },
+    }
     const loginUser = async () => {
- const styles={
-    footer: {
-        padding: '20px',
-        textAlign: 'center',
-        backgroundColor: '#333',
-        color: '#fff',
-        marginTop: '40px',
-        position: 'fixed',
-        width: '100%',
-        bottom: 0,
-    },
- }
-
-
+        setLoading(true);
         try {
             let response = await API.userLogin(login);
             if (response.isSuccess) {
                 showError('');
-
                 sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
                 sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
                 setAccount({ name: response.data.name, username: response.data.username });
-
                 isUserAuthenticated(true);
                 setLogin(loginInitialValues);
                 navigate('/');
@@ -152,10 +151,13 @@ const Login = ({ isUserAuthenticated }) => {
             }
         } catch (error) {
             showError('An error occurred during login. Please try again later.');
+        } finally {
+            setLoading(false);
         }
     };
 
     const signupUser = async () => {
+        setLoading(true);
         try {
             let response = await API.userSignup(signup);
             if (response.isSuccess) {
@@ -163,10 +165,12 @@ const Login = ({ isUserAuthenticated }) => {
                 setSignup(signupInitialValues);
                 toggleAccount('login');
             } else {
-                showError('Something went wrong! Please try again later.');
+                showError('Signup failed. Please try again.');
             }
         } catch (error) {
             showError('An error occurred during signup. Please try again later.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -175,9 +179,12 @@ const Login = ({ isUserAuthenticated }) => {
     };
 
     return (
+        <>
         <Component>
             <Box>
-                <Image src={imageURL} alt="blog" />
+                <Image src={imageURL} alt="blog" 
+                                               
+/>
                 {
                     account === 'login' ?
                         <Wrapper>
@@ -188,7 +195,7 @@ const Login = ({ isUserAuthenticated }) => {
                                 name='username'
                                 label='Enter Username'
                                 fullWidth
-                                style={{ borderRadius: '20px' }}
+                                style={{ borderRadius: '20px' ,mb:'10px'}}
                             />
                             <TextField
                                 variant="outlined"
@@ -203,7 +210,11 @@ const Login = ({ isUserAuthenticated }) => {
 
                             {error && <Error>{error}</Error>}
 
-                            <LoginButton variant="contained" onClick={loginUser}>Login</LoginButton>
+                            <LoginButton variant="contained" onClick={loginUser}>
+                            {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
+                                
+                                
+                                </LoginButton>
                             <Text style={{ textAlign: 'center' }}>OR</Text>
                             <SignupButton onClick={toggleSignup}>Create an account</SignupButton>
                         </Wrapper> :
@@ -233,8 +244,15 @@ const Login = ({ isUserAuthenticated }) => {
                                 fullWidth
                                 style={{ borderRadius: '20px' }}
                             />
+                                                        {error && <Error>{error}</Error>}
 
-                            <SignupButton onClick={signupUser}>Signup</SignupButton>
+
+                            <SignupButton onClick={signupUser}>
+
+                            {loading ? <CircularProgress size={24} color="inherit" /> : 'Signup'}
+                                
+                                
+                                </SignupButton>
                             <Text style={{ textAlign: 'center' }}>OR</Text>
                             <LoginButton variant="contained" onClick={toggleSignup}>Already have an account</LoginButton>
                         </Wrapper>
@@ -243,18 +261,25 @@ const Login = ({ isUserAuthenticated }) => {
 
 
 
-            <Box className='footer' style={{ padding: '20px',
+        
+        </Component>
+
+   
+            <Box className='footer' style={{ padding: '10px',
         textAlign: 'center',
         backgroundColor: '#333',
         color: '#fff',
-        marginTop: '40px',
+        marginTop: '50px',
+        height:'10px',
 
         position: 'fixed',
         width: '100%',
         bottom: 0,}}>
                 <Typography variant="body2">All rights reserved &copy; Abhay Yadav</Typography>
             </Box>
-        </Component>
+        
+        
+        </>
     );
 };
 
