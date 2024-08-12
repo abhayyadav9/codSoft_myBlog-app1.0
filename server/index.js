@@ -29,10 +29,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-const PORT = 8000;
-const username = process.env.DB_USERNAME;
-const password = process.env.DB_PASSWORD;
+const PORT =process.envAPI_URL|| 8000;
 
-Connection(username, password);
+
+Connection();
 
 app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
