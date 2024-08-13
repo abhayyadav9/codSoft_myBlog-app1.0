@@ -36,7 +36,7 @@ const LeftContainer = styled('div')(({ theme }) => ({
         order: -1, // Move this container to the bottom on mobile
         width: '100%',
         justifyContent: 'left',
-        gap:'105px' // Center align on mobile
+        gap:'170px' // Center align on mobile
     },
 }));
 
@@ -46,7 +46,9 @@ const RightContainer = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: {
         order: 1, // Move this container to the top on mobile
         width: '100%',
-        justifyContent: 'left', // Center align on mobile
+        justifyContent: 'left',
+        gap:'25px'
+         // Center align on mobile
     },
 }));
 
@@ -64,11 +66,12 @@ const LinkStyled = styled(Link)(({ theme }) => ({
     },
     [theme.breakpoints.down('sm')]: {
         fontSize: '14px', // Adjust font size for mobile
-        padding: '8px 10px', // Adjust padding for mobile
+        padding: '8px 10px',
+        // Adjust padding for mobile
       
     },
     '& svg': {
-        marginRight: '8px', // Adjust space between icon and text
+        marginRight: '15px', // Adjust space between icon and text
     },
 }));
 
@@ -86,7 +89,8 @@ const LogoutButton = styled(Button)(({ theme }) => ({
         marginTop: '10px',
         fontSize: '12px', // Adjust font size for mobile
         width: '30%',
-        marginLeft:'90px' // Make button full-width on mobile
+
+        marginLeft:'130px' // Make button full-width on mobile
     },
 }));
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Box, CircularProgress } from '@mui/material';
+import { Grid, Box, CircularProgress, Typography } from '@mui/material';
 import { Link, useSearchParams } from 'react-router-dom';
 import { API } from '../../../service/api';
 import Post from './Post';
@@ -12,6 +12,21 @@ const SpinnerContainer = styled(Box)({
     transform: 'translate(-50%, -50%)',
     zIndex: 1000,
 });
+
+const ErrorContainer = styled(Box)({
+    color: 'red',
+    margin: '30px',
+    fontSize: 18,
+    textAlign: 'center',
+});
+
+const NoDataContainer = styled(Box)({
+    color: '#878787',
+    margin: '30px 80px',
+    fontSize: 18,
+    textAlign: 'center',
+});
+
 
 const Posts = () => {
     const [posts, setPosts] = useState([]);
@@ -49,8 +64,8 @@ const Posts = () => {
     }
 
     return (
-        <>
-            {error && <Box style={{ color: 'red', margin: '30px', fontSize: 18 }}>{error}</Box>}
+        <Grid container spacing={2}>
+            {error && <ErrorContainer>{error}</ErrorContainer>}
             {posts.length ? (
                 posts.map(post => (
                     <Grid item lg={3} sm={4} xs={12} key={post._id}>
@@ -60,11 +75,11 @@ const Posts = () => {
                     </Grid>
                 ))
             ) : (
-                <Box style={{ color: '878787', margin: '30px 80px', fontSize: 18 }}>
-                    No data is available for selected category
-                </Box>
+                <NoDataContainer>
+                    No data is available for the selected category.
+                </NoDataContainer>
             )}
-        </>
+        </Grid>
     );
 };
 

@@ -272,7 +272,7 @@ const Login = ({ isUserAuthenticated }) => {
         marginTop: '50px',
         height:'10px',
 
-        position: 'fixed',
+
         width: '100%',
         bottom: 0,}}>
                 <Typography variant="body2">All rights reserved &copy; Abhay Yadav</Typography>
